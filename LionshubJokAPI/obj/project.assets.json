@@ -7640,11 +7640,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rdev\\source\\repos\\LionshubJokAPI\\LionshubJokAPI\\LionshubJokAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Rdev\\Source\\Repos\\LionshubJokApi2\\LionshubJokAPI\\LionshubJokAPI.csproj",
       "projectName": "LionshubJokAPI",
-      "projectPath": "C:\\Users\\Rdev\\source\\repos\\LionshubJokAPI\\LionshubJokAPI\\LionshubJokAPI.csproj",
+      "projectPath": "C:\\Users\\Rdev\\Source\\Repos\\LionshubJokApi2\\LionshubJokAPI\\LionshubJokAPI.csproj",
       "packagesPath": "C:\\Users\\Rdev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rdev\\source\\repos\\LionshubJokAPI\\LionshubJokAPI\\obj\\",
+      "outputPath": "C:\\Users\\Rdev\\Source\\Repos\\LionshubJokApi2\\LionshubJokAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

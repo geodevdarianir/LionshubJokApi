@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gVqRj3oqp2VISWGXjUdKKK2NbNL2UCsNRFySe/a+GE1Jqe13WDtBuxlG7EtbesL7kIRc8Yk2SVVE5CJSJsU8/g==",
+  "dgSpecHash": "kocskKMty27sHLk6e7u/Jf5RYrr7NeDV3+SwhPRSrB36mHV668u+ZCdpP4lc46Gihx+mWOAzjDVL0O8DZLawfQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Rdev\\source\\repos\\LionshubJokAPI\\LionshubJokAPI\\LionshubJokAPI.csproj",
+  "projectFilePath": "C:\\Users\\Rdev\\Source\\Repos\\LionshubJokApi2\\LionshubJokAPI\\LionshubJokAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rdev\\.nuget\\packages\\dnsclient\\1.3.1\\dnsclient.1.3.1.nupkg.sha512",
     "C:\\Users\\Rdev\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

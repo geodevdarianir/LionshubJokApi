@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LionshubJokAPI.Models;
 using LionshubJokAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,9 +27,25 @@ namespace LionshubJokAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<GamerService>();
+            services.Configure<Settings>(options =>
+            {
+                options.ConnectionString
+                    = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                options.Database
+                    = Configuration.GetSection("MongoConnection:Database").Value;
+                
+            });
+
+           
             services.AddScoped<TableService>();
-            
+            services.AddScoped<GamerService>();
+           
+            //p => new JokerService(p.GetService<ITableService>(), p.GetService<IGamerService>())
+
+            //services.AddTransient<ITableService,IGamerService, JokerService>();
+            //services.AddTransient<IGamerService, GamerService>();
+            //services.AddTransient<ITableService, TableService>();
+
             services.AddControllers();
         }
 

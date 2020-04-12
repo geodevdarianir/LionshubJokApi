@@ -1,5 +1,6 @@
 ﻿using LionshubJokAPI.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,17 @@ using System.Threading.Tasks;
 
 namespace LionshubJokAPI.Services
 {
-    public class TableService
+    public class TableService : ITableService
     {
         private readonly IMongoCollection<Table> _tables;
-        public TableService(IConfiguration config)
+        private readonly DbService _context = null;
+        public TableService(IOptions<Settings> settings)
         {
-            var client = new MongoClient(config.GetConnectionString("MyJokDB"));
-            var database = client.GetDatabase("MyJokDB");
-            _tables = database.GetCollection<Table>("Tables");
+            _context = new DbService(settings);
+            _tables = _context.Tables;
+            //var client = service.MongoClient;
+            //var database = client.GetDatabase("MyJokDB");
+            //_tables = database.GetCollection<Table>("Tables");
         }
 
         public List<Table> Get()
@@ -32,7 +36,5 @@ namespace LionshubJokAPI.Services
             _tables.InsertOne(table);
             return table;
         }
-
-     
     }
 }

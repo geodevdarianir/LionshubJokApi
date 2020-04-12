@@ -1,5 +1,6 @@
 ﻿using LionshubJokAPI.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,14 @@ using System.Threading.Tasks;
 
 namespace LionshubJokAPI.Services
 {
-    public class GamerService
+    public class GamerService: IGamerService
     {
         private readonly IMongoCollection<Gamer> _gamer;
-
-        public GamerService(IConfiguration config)
+        private readonly DbService _context = null;
+        public GamerService(IOptions<Settings> settings)
         {
-            var client = new MongoClient(config.GetConnectionString("MyJokDB"));
-            var database = client.GetDatabase("MyJokDB");
-            _gamer = database.GetCollection<Gamer>("Gamers");
+            _context = new DbService(settings);
+            _gamer = _context.Gamers;
         }
 
         public List<Gamer> Get()

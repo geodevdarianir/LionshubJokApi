@@ -11,10 +11,10 @@ namespace LionshubJokAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GamerController : ControllerBase
+    public class GamersController : ControllerBase
     {
         private readonly GamerService _gamerService;
-        public GamerController(GamerService gamerService)
+        public GamersController(GamerService gamerService)
         {
             _gamerService = gamerService;
         }

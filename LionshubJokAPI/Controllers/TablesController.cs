@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LionshubJokAPI.Controllers
 {
-    [Route("LionshubApi/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TablesController : ControllerBase
     {
@@ -23,6 +23,7 @@ namespace LionshubJokAPI.Controllers
         {
             return _tableService.Get();
         }
+
 
         [HttpPost("id:length(24)", Name = "GetTable")]
         public ActionResult<Table> Get(string id)

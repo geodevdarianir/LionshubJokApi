@@ -8,20 +8,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LionshubJokAPI.Controllers
 {
-    [Route("LionshubApi/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class PlayController : ControllerBase
     {
-        private  JokerService _jokerService;
-        public PlayController()
+        private readonly JokerService _jokerService;
+        public PlayController(JokerService jokerService)
         {
-            //_jokerService = jokerService;
+            _jokerService = jokerService;
         }
 
-        [HttpGet]
+        [HttpPost("tableId:length(24)")]
         public IActionResult StartPlay(string tableId)
         {
-            JokerService service = new JokerService();
+            _jokerService.GeneratePlay(tableId);
+
+            //JokerService service = new JokerService();
             //service.StartPlay();
             return Ok();
         }
