@@ -26,13 +26,13 @@ namespace LionshubJokAPI.Controllers
         [HttpPost]
         public IActionResult GeneratePlay(Table table)
         {
-            _jokerService.GeneratePlay(table.Id);
+            bool res = _jokerService.GeneratePlay(table.Id);
 
             //JokerService service = new JokerService();
             //service.StartPlay();
-            return Ok();
+            return Ok(res);
         }
 
-        
+
     }
 }

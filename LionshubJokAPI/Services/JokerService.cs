@@ -33,9 +33,9 @@ namespace LionshubJokAPI.Services
             //play = new PlayGame(gamers, deckOfCard);
         }
 
-        public void GeneratePlay(string tableID)
+        public bool GeneratePlay(string tableID)
         {
-
+            bool res = false;
             List<Models.Gamer> modelGamers = new List<Models.Gamer>();
             Models.Table table = _tableService.Get(tableID);
 
@@ -65,7 +65,9 @@ namespace LionshubJokAPI.Services
                     playGamers.Add(new LionshubJoker.Joker.Gamer(i + 1, gamers[i].Name, playTable));
                 }
                 play = new PlayGame(playGamers, deckOfCard);
+                res = true;
             }
+            return res;
         }
 
         public PlayGame StartPlay(CardsOnRound round)
