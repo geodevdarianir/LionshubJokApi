@@ -9,21 +9,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LionshubJokAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]/{id?}")]
     [ApiController]
     public class TablesController : ControllerBase
     {
-        private readonly TableService _tableService;
-        public TablesController(TableService tableService)
+        private readonly ITableService _tableService;
+        public TablesController(ITableService tableService)
         {
             _tableService = tableService;
         }
+
         [HttpGet]
         public ActionResult<List<Table>> Get()
         {
             return _tableService.Get();
         }
-
 
         [HttpPost("id:length(24)", Name = "GetTable")]
         public ActionResult<Table> Get(string id)

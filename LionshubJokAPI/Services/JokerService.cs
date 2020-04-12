@@ -35,7 +35,7 @@ namespace LionshubJokAPI.Services
 
         public void GeneratePlay(string tableID)
         {
-            IMongoCollection<Models.Table> _tables = _context.Tables;
+
             List<Models.Gamer> modelGamers = new List<Models.Gamer>();
             Models.Table table = _tableService.Get(tableID);
 
@@ -60,9 +60,9 @@ namespace LionshubJokAPI.Services
             var playGamers = new List<LionshubJoker.Joker.Gamer>();
             if (gamers.Count == 4)
             {
-                for (int i = 1; i < 5; i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    playGamers.Add(new LionshubJoker.Joker.Gamer(i, gamers[i].Name, playTable));
+                    playGamers.Add(new LionshubJoker.Joker.Gamer(i + 1, gamers[i].Name, playTable));
                 }
                 play = new PlayGame(playGamers, deckOfCard);
             }

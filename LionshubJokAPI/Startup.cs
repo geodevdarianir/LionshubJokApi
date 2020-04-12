@@ -36,16 +36,16 @@ namespace LionshubJokAPI
                 
             });
 
-           
-            services.AddScoped<TableService>();
-            services.AddScoped<GamerService>();
-           
-            //p => new JokerService(p.GetService<ITableService>(), p.GetService<IGamerService>())
+           // ყოველთვის ერთი ობიექტი
+            services.AddScoped<ITableService,TableService>();
+            services.AddScoped<IGamerService,GamerService>();
+            services.AddScoped<JokerService>();
 
+            //p => new JokerService(p.GetService<ITableService>(), p.GetService<IGamerService>())
+            // სულ ახალ ობიექტს გაძლევს
             //services.AddTransient<ITableService,IGamerService, JokerService>();
             //services.AddTransient<IGamerService, GamerService>();
             //services.AddTransient<ITableService, TableService>();
-
             services.AddControllers();
         }
 

@@ -9,16 +9,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LionshubJokAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]/{id?}")]
     [ApiController]
     public class GamersController : ControllerBase
     {
-        private readonly GamerService _gamerService;
-        public GamersController(GamerService gamerService)
+        private readonly IGamerService _gamerService;
+        public GamersController(IGamerService gamerService)
         {
             _gamerService = gamerService;
         }
 
+        [HttpGet]
+        public IActionResult GetText()
+        {
+            return Content("Hallo");
+        }
         [HttpGet]
         public ActionResult<List<Gamer>> Get()
         {
