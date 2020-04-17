@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LionshubJokAPI.Models;
-using LionshubJoker.Joker;
+using Joke = LionshubJoker.Joker;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -17,63 +17,66 @@ namespace LionshubJokAPI.Services
         private readonly IGamerService _gamerService;
 
         private readonly DbService _context = null;
-        public PlayGame play;
-        public List<CardsOnRound> rounds;
+        public static Joke.PlayGame play;
+        public Joke.Game game;
+        public List<Joke.RoundsAndGamers> rounds;
 
-        private readonly List<Card> deckOfCard;
+        private  List<Joke.Card> deckOfCard;
 
         public JokerService(ITableService tableService, IGamerService gamerService)
         {
             _tableService = tableService;
             _gamerService = gamerService;
-            DeckOfCardCreator deckOfCardCreator = new DeckOfCardCreator();
-            // კარტის დასტა
-            deckOfCard = new List<Card>();
-            deckOfCard.AddRange(deckOfCardCreator.CreateDeckOfCards());
+            
             //play = new PlayGame(gamers, deckOfCard);
         }
 
         public bool GeneratePlay(string tableID)
         {
-            bool res = false;
+            bool res = true;
             List<Models.Gamer> modelGamers = new List<Models.Gamer>();
             Models.Table table = _tableService.Get(tableID);
-
-            Game game = null;
-            if (table.Name == GameType.Standard.ToString())
-            {
-                game = new Game(GameType.Standard);
-                rounds = game.LoadGame();
-            }
-            else if (table.Name == GameType.Nines.ToString())
-            {
-                game = new Game(GameType.Nines);
-            }
-            else
-            {
-                game = new Game(GameType.Ones);
-            }
-            rounds = game.LoadGame();
-
             var gamers = _gamerService.GetGamersOnTable(tableID);
-            LionshubJoker.Joker.Table playTable = new LionshubJoker.Joker.Table();
+
             var playGamers = new List<LionshubJoker.Joker.Gamer>();
+            LionshubJoker.Joker.Table playTable = new LionshubJoker.Joker.Table();
             if (gamers.Count == 4)
             {
                 for (int i = 0; i < 4; i++)
                 {
                     playGamers.Add(new LionshubJoker.Joker.Gamer(i + 1, gamers[i].Name, playTable));
                 }
-                play = new PlayGame(playGamers, deckOfCard);
+                if (table.Name == Joke.GameType.Standard.ToString())
+                {
+                    game = new Joke.Game(Joke.GameType.Standard, playGamers);
+                }
+                else if (table.Name == Joke.GameType.Nines.ToString())
+                {
+                    game = new Joke.Game(Joke.GameType.Nines, playGamers);
+                }
+                else
+                {
+                    game = new Joke.Game(Joke.GameType.Ones, playGamers);
+                }
+                rounds = game.LoadGame();
+                play = new Joke.PlayGame(playGamers);
                 res = true;
             }
             return res;
         }
 
-        public PlayGame StartPlay(CardsOnRound round)
+        public Joke.PlayGame StartPlay(Models.RoundsAndGamers round)
         {
-            play.StartRound(round);
+           
+            Joke.RoundsAndGamers roundsAndGamers = new Joke.RoundsAndGamers
+            {
+                Hand = round.handRound,
+                CurrentGamer = play.Gamers.Where(p => p.Id == round.GamerID).FirstOrDefault()
+            };
+            play.StartRound(roundsAndGamers.Hand);
+            play.CurrentGamer = roundsAndGamers.CurrentGamer;
             play.CurrentGamer.AllowCardsForTable();
+
             return play;
         }
     }

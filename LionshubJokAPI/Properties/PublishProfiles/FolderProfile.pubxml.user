@@ -6,6 +6,6 @@ indem Sie diese MSBuild-Datei bearbeiten. Weitere Informationen hierzu finden Si
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword />
+    <_PublishTargetUrl>C:\Users\Rdev\Desktop\Deploy</_PublishTargetUrl>
   </PropertyGroup>
 </Project>

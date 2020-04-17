@@ -24,10 +24,16 @@ namespace LionshubJokAPI.Controllers
         {
             return Content("Hallo");
         }
+
         [HttpGet]
         public ActionResult<List<Gamer>> Get()
         {
             return _gamerService.Get();
+        }
+        [HttpGet]
+        public ActionResult<List<Gamer>> GetGamersOnTables(string id)
+        {
+            return _gamerService.GetGamersOnTable(id);
         }
 
         [HttpPost("id:length(24)", Name = "GetGamer")]

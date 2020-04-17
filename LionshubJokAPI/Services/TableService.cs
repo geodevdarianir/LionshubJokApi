@@ -36,5 +36,18 @@ namespace LionshubJokAPI.Services
             _tables.InsertOne(table);
             return table;
         }
+
+        //public bool DeleteAll()
+        //{
+
+        //}
+
+        //public bool Delete(string id)
+        //{
+        //    //var test = db.GetCollection<Entity>("test");
+        //    //var filter = new BsonDocument();
+           
+        //    return _tables.;
+        //}
     }
 }
