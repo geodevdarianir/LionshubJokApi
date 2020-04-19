@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LionshubJokAPI.Services
 {
-    public class GamerService: IGamerService
+    public class GamerService : IGamerService
     {
         private readonly IMongoCollection<Gamer> _gamer;
         private readonly DbService _context = null;
@@ -38,6 +38,26 @@ namespace LionshubJokAPI.Services
         {
             _gamer.InsertOne(gamer);
             return gamer;
+        }
+        public void Delete(Gamer gamer)
+        {
+            _gamer.DeleteOne(p => p.Id == gamer.Id);
+        }
+        public void DeleteGamersOnTable(Table table)
+        {
+            List<Gamer> gamersOnTable = GetGamersOnTable(table.Id);
+            foreach (Gamer item in gamersOnTable)
+            {
+                Delete(item);
+            }
+        }
+        public void DeleteAll()
+        {
+            List<Gamer> allGamers = Get();
+            foreach (Gamer item in allGamers)
+            {
+                Delete(item);
+            }
         }
     }
 }

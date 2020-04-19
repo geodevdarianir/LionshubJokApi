@@ -33,5 +33,9 @@ namespace LionshubJokAPI.Services
                 return _database.GetCollection<Gamer>("Gamers");
             }
         }
+        public IMongoDatabase DataBase
+        {
+            get => _database;
+        }
     }
 }

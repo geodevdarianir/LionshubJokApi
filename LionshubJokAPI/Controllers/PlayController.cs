@@ -59,5 +59,20 @@ namespace LionshubJokAPI.Controllers
             PlayGame palay = _jokerService.StartPlay(round);
             return Ok(palay);
         }
+
+        [HttpPost]
+        public IActionResult GetPlayState()
+        {
+            PlayGame play = _jokerService.GetPlayState();
+            if (play != null)
+            {
+                return Ok(play);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
     }
 }

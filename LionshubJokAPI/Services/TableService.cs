@@ -12,11 +12,13 @@ namespace LionshubJokAPI.Services
     public class TableService : ITableService
     {
         private readonly IMongoCollection<Table> _tables;
+        private readonly IMongoDatabase _db;
         private readonly DbService _context = null;
         public TableService(IOptions<Settings> settings)
         {
             _context = new DbService(settings);
             _tables = _context.Tables;
+            _db = _context.DataBase;
             //var client = service.MongoClient;
             //var database = client.GetDatabase("MyJokDB");
             //_tables = database.GetCollection<Table>("Tables");
@@ -36,7 +38,19 @@ namespace LionshubJokAPI.Services
             _tables.InsertOne(table);
             return table;
         }
+        public void Delete(Table tableIn)
+        {
+            _tables.DeleteOne(p => p.Id == tableIn.Id);
+        }
 
+        public void DeleteAll()
+        {
+            List<Table> tables = Get();
+            foreach (Table item in tables)
+            {
+                Delete(item);
+            }
+        }
         //public bool DeleteAll()
         //{
 
@@ -46,7 +60,7 @@ namespace LionshubJokAPI.Services
         //{
         //    //var test = db.GetCollection<Entity>("test");
         //    //var filter = new BsonDocument();
-           
+
         //    return _tables.;
         //}
     }

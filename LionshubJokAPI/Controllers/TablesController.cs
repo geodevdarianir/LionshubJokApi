@@ -42,5 +42,12 @@ namespace LionshubJokAPI.Controllers
             _tableService.Create(table);
             return CreatedAtRoute("GetTable", new { id = table.Id.ToString() }, table);
         }
+
+        [HttpPost]
+        public ActionResult<Table> DeleteAll()
+        {
+            _tableService.DeleteAll();
+            return Ok();
+        }
     }
 }

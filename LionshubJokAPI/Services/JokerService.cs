@@ -21,13 +21,13 @@ namespace LionshubJokAPI.Services
         public Joke.Game game;
         public List<Joke.RoundsAndGamers> rounds;
 
-        private  List<Joke.Card> deckOfCard;
+        private List<Joke.Card> deckOfCard;
 
         public JokerService(ITableService tableService, IGamerService gamerService)
         {
             _tableService = tableService;
             _gamerService = gamerService;
-            
+
             //play = new PlayGame(gamers, deckOfCard);
         }
 
@@ -67,7 +67,7 @@ namespace LionshubJokAPI.Services
 
         public Joke.PlayGame StartPlay(Models.RoundsAndGamers round)
         {
-           
+
             Joke.RoundsAndGamers roundsAndGamers = new Joke.RoundsAndGamers
             {
                 Hand = round.handRound,
@@ -77,6 +77,11 @@ namespace LionshubJokAPI.Services
             play.CurrentGamer = roundsAndGamers.CurrentGamer;
             play.CurrentGamer.AllowCardsForTable();
 
+            return play;
+        }
+
+        public Joke.PlayGame GetPlayState()
+        {
             return play;
         }
     }

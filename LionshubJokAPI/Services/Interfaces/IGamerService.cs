@@ -15,5 +15,9 @@ namespace LionshubJokAPI.Services
         List<Gamer> GetGamersOnTable(string tableId);
 
         Gamer Create(Gamer gamer);
+
+        void Delete(Gamer gamer);
+        void DeleteGamersOnTable(Table table);
+        void DeleteAll();
     }
 }

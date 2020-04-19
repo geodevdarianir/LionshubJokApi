@@ -53,5 +53,12 @@ namespace LionshubJokAPI.Controllers
             _gamerService.Create(gamer);
             return CreatedAtRoute("GetGamer", new { id = gamer.Id.ToString() }, gamer);
         }
+
+        [HttpPost]
+        public ActionResult<Gamer> DeleteAll()
+        {
+            _gamerService.DeleteAll();
+            return Ok();
+        }
     }
 }
