@@ -14,5 +14,6 @@ namespace LionshubJokAPI.Services
         Table Create(Table table);
         void Delete(Table tableIn);
         void DeleteAll();
+        void DeleteWithId(string tableID);
     }
 }

@@ -42,6 +42,10 @@ namespace LionshubJokAPI.Services
         {
             _tables.DeleteOne(p => p.Id == tableIn.Id);
         }
+        public void DeleteWithId(string tableID)
+        {
+            _tables.DeleteOne(p => p.Id == tableID);
+        }
 
         public void DeleteAll()
         {

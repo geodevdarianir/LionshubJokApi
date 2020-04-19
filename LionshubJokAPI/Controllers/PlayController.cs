@@ -30,21 +30,15 @@ namespace LionshubJokAPI.Controllers
             bool res = _jokerService.GeneratePlay(table.Id);
             if (res == true)
             {
-                List<Models.RoundsAndGamers> rouns = new List<Models.RoundsAndGamers>();
-                foreach (LionshubJoker.Joker.RoundsAndGamers item in _jokerService.rounds)
+                Joker joker = JokerService.jokers.Where(p => p.TableID == table.Id).FirstOrDefault();
+                if (joker == null)
                 {
-                    rouns.Add(new Models.RoundsAndGamers
-                    {
-                        GamerID = item.CurrentGamer.Id,
-                        handRound = item.Hand
-                    });
+                    return NotFound(table);
                 }
-                Joker joker = new Joker
+                else
                 {
-                    play = JokerService.play,
-                    rounds = rouns
-                };
-                return Ok(joker);
+                    return Ok(joker);
+                }
             }
             else
             {
@@ -53,26 +47,40 @@ namespace LionshubJokAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult StartHand(Models.RoundsAndGamers round)
+        public IActionResult StartHand(Models.RoundsAndGamers round, string tableID)
         {
 
-            PlayGame palay = _jokerService.StartPlay(round);
-            return Ok(palay);
+            PlayGame play = _jokerService.StartPlay(round, tableID);
+            return Ok(play);
         }
 
         [HttpPost]
-        public IActionResult GetPlayState()
+        public IActionResult GetPlayState(string tableID)
         {
-            PlayGame play = _jokerService.GetPlayState();
-            if (play != null)
+            Joker joker = _jokerService.GetPlayState(tableID);
+            if (joker != null)
             {
-                return Ok(play);
+                return Ok(joker);
             }
             else
             {
                 return NotFound();
             }
 
+        }
+
+        [HttpPost]
+        public IActionResult RemoveJoker(string tableID)
+        {
+            bool res = _jokerService.RemoveJoker(tableID);
+            if (res)
+            {
+                return Ok(res);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

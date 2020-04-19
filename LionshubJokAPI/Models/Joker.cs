@@ -10,5 +10,6 @@ namespace LionshubJokAPI.Models
     {
         public PlayGame play { get; set; }
         public List<RoundsAndGamers> rounds { get; set; }
+        public string TableID { get; set; }
     }
 }

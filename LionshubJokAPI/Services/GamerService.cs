@@ -43,9 +43,17 @@ namespace LionshubJokAPI.Services
         {
             _gamer.DeleteOne(p => p.Id == gamer.Id);
         }
-        public void DeleteGamersOnTable(Table table)
+        public void DeleteOnTable(Table table)
         {
             List<Gamer> gamersOnTable = GetGamersOnTable(table.Id);
+            foreach (Gamer item in gamersOnTable)
+            {
+                Delete(item);
+            }
+        }
+        public void DeleteOnTableWithId(string tableId)
+        {
+            List<Gamer> gamersOnTable = GetGamersOnTable(tableId);
             foreach (Gamer item in gamersOnTable)
             {
                 Delete(item);

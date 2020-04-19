@@ -7,7 +7,8 @@ namespace LionshubJokAPI.Models
 {
     public class RoundsAndGamers
     {
-        public CardsOnRound  handRound { get; set; }
+        public CardsOnRound handRound { get; set; }
         public int GamerID { get; set; }
+        public bool Aktive { get; set; } = false;
     }
 }
