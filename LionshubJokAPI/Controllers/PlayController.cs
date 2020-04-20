@@ -49,7 +49,6 @@ namespace LionshubJokAPI.Controllers
         [HttpPost]
         public IActionResult StartHand(Models.RoundsAndGamers round, string tableID)
         {
-
             PlayGame play = _jokerService.StartPlay(round, tableID);
             return Ok(play);
         }
@@ -80,6 +79,21 @@ namespace LionshubJokAPI.Controllers
             else
             {
                 return NotFound();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult PutCardOnTable(int cardId, string tableID)
+        {
+            
+            Joker joker = _jokerService.PutCardOnTable(cardId, tableID);
+            if (joker is null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(joker);
             }
         }
     }

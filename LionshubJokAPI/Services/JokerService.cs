@@ -97,5 +97,21 @@ namespace LionshubJokAPI.Services
             return jokers.Remove(joker);
         }
 
+        public Joker PutCardOnTable(int cardId, string tableID)
+        {
+
+            Joker joker = jokers.Where(p => p.TableID == tableID).FirstOrDefault();
+            LionshubJoker.Joker.Card card = joker.play.CurrentGamer.CardsOnHand.Where(p => p.CardId == cardId).FirstOrDefault();
+            if (joker != null)
+            {
+                bool res = joker.play.CurrentGamer.PutCardAway(card);
+                if (res)
+                {
+                    return joker;
+                }
+            }
+            return null;
+        }
+
     }
 }
