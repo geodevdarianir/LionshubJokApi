@@ -89,7 +89,7 @@ namespace LionshubJokAPI.Controllers
             Joker joker = _jokerService.PutCardOnTable(cardId, tableID);
             if (joker is null)
             {
-                return NotFound();
+                return Content("404");
             }
             else
             {
