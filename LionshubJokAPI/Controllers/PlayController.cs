@@ -63,7 +63,7 @@ namespace LionshubJokAPI.Controllers
             }
             else
             {
-                return NotFound();
+                return Content("404");
             }
 
         }
