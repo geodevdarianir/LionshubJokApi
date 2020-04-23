@@ -28,6 +28,7 @@ namespace LionshubJokAPI.Services
         public bool GeneratePlay(string tableID)
         {
             bool res = true;
+
             List<Models.Gamer> modelGamers = new List<Models.Gamer>();
             Models.Table table = _tableService.Get(tableID);
             var gamers = _gamerService.GetGamersOnTable(tableID);
@@ -62,8 +63,10 @@ namespace LionshubJokAPI.Services
                         handRound = item.Hand
                     });
                 }
+                //table.FourCardsAndGamersListOnTheTable = playTable._fourCardsAndGamersListOnTheTable;
                 joker.play = new Joke.PlayGame(playGamers);
                 joker.TableID = tableID;
+                joker.Table = playTable;
                 jokers.Add(joker);
                 res = true;
             }
@@ -72,16 +75,15 @@ namespace LionshubJokAPI.Services
 
         public Joke.PlayGame StartPlay(Models.RoundsAndGamers round, string tableID)
         {
-
             Joke.RoundsAndGamers roundsAndGamers = new Joke.RoundsAndGamers
             {
                 Hand = round.handRound,
-                CurrentGamer = jokers.Where(p => p.TableID == tableID).FirstOrDefault().play.Gamers.Where(p => p.Id == round.GamerID).FirstOrDefault()
+                CurrentGamer = jokers.Where(p => p.TableID == tableID).FirstOrDefault().play.Gamers.Where(p => p.Id == round.GamerID).FirstOrDefault(),
             };
             jokers.Where(p => p.TableID == tableID).FirstOrDefault().play.StartRound(roundsAndGamers.Hand);
             jokers.Where(p => p.TableID == tableID).FirstOrDefault().play.CurrentGamer = roundsAndGamers.CurrentGamer;
             jokers.Where(p => p.TableID == tableID).FirstOrDefault().play.CurrentGamer.AllowCardsForTable();
-
+            jokers.Where(p => p.TableID == tableID).FirstOrDefault().rounds.Where(p => p.GamerID == round.GamerID && p.handRound == round.handRound).First().Aktive = true;
             return jokers.Where(p => p.TableID == tableID).FirstOrDefault().play;
         }
 
@@ -99,7 +101,6 @@ namespace LionshubJokAPI.Services
 
         public Joker PutCardOnTable(int cardId, string tableID)
         {
-
             Joker joker = jokers.Where(p => p.TableID == tableID).FirstOrDefault();
             LionshubJoker.Joker.Card card = joker.play.CurrentGamer.CardsOnHand.Where(p => p.CardId == cardId).FirstOrDefault();
             if (joker != null)
@@ -107,11 +108,25 @@ namespace LionshubJokAPI.Services
                 bool res = joker.play.CurrentGamer.PutCardAway(card);
                 if (res)
                 {
+                    int indexOfCurrentGamer = joker.play.Gamers.IndexOf(joker.play.CurrentGamer);
+                    if (indexOfCurrentGamer == joker.play.Gamers.Count - 1)
+                    {
+                        joker.play.CurrentGamer = joker.play.Gamers[0];
+                    }
+                    else
+                    {
+                        joker.play.CurrentGamer = joker.play.Gamers[indexOfCurrentGamer + 1];
+                    }
+                    joker.play.CurrentGamer.AllowCardsForTable();
+                    if (joker.Table._fourCardsAndGamersListOnTheTable._fourCardAndGamerOnTable.Count == joker.play.Gamers.Count)
+                    {
+                        joker.Table.TakeCardsFromTable();
+                        joker.play.CurrentGamer = joker.play.Gamers.Where(p => p.CurrentGamerAfterOneRound == true).First();
+                    }
                     return joker;
                 }
             }
             return null;
         }
-
     }
 }
