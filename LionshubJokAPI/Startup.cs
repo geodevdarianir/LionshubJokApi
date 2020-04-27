@@ -66,6 +66,11 @@ namespace LionshubJokAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapControllerRoute(
+                //    name:"api",
+                //    pattern: "[controller]/[action]/{id?}",
+                //    defaults: new { action= "GetCurrentGames" }
+                //    );
             });
         }
     }

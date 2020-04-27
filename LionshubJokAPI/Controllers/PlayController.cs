@@ -19,11 +19,7 @@ namespace LionshubJokAPI.Controllers
         {
             _jokerService = jokerService;
         }
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Content("Hallo");
-        }
+       
         [HttpPost]
         public IActionResult GeneratePlay(Models.Table table)
         {
@@ -47,9 +43,9 @@ namespace LionshubJokAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult StartHand(Models.RoundsAndGamers round, string tableID)
+        public IActionResult StartHand(string tableID)
         {
-            PlayGame play = _jokerService.StartPlay(round, tableID);
+            PlayGame play = _jokerService.StartPlay(tableID);
             return Ok(play);
         }
 
@@ -65,7 +61,6 @@ namespace LionshubJokAPI.Controllers
             {
                 return Content("404");
             }
-
         }
 
         [HttpPost]
@@ -85,7 +80,7 @@ namespace LionshubJokAPI.Controllers
         [HttpPost]
         public IActionResult PutCardOnTable(int cardId, string tableID)
         {
-            
+
             Joker joker = _jokerService.PutCardOnTable(cardId, tableID);
             if (joker is null)
             {
@@ -95,6 +90,12 @@ namespace LionshubJokAPI.Controllers
             {
                 return Ok(joker);
             }
+        }
+        [Route("")]
+        [HttpGet]
+        public IActionResult GetCurrentGames()
+        {
+            return Ok(_jokerService.GetCurrentGames());
         }
     }
 }
