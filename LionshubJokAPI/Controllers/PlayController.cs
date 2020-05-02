@@ -115,5 +115,10 @@ namespace LionshubJokAPI.Controllers
         {
             return Ok(_jokerService.SetTumpCard(tableID, color));
         }
+        [HttpPost]
+        public IActionResult SetJokerStrength(string tableID, int strengthOfCard, int giveANDtake, int cardID)
+        {
+            return Ok(_jokerService.SetJokerStrength(tableID, strengthOfCard, giveANDtake, cardID));
+        }
     }
 }

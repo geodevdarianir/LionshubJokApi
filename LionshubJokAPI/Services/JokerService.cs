@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using LionshubJoker.Joker;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace LionshubJokAPI.Services
 {
@@ -149,10 +150,23 @@ namespace LionshubJokAPI.Services
             return jokers;
         }
 
+        public Joker SetJokerStrength(string tableID, int strengthOfCard, int giveANDtake, int cardID)
+        {
+            Joker joker = jokers.FirstOrDefault(p => p.TableID == tableID);
+            Joke.Card card = joker.play.CurrentGamer.CardsOnHand.FirstOrDefault(p => p.CardId == cardID);
+            if (card != null)
+            {
+                StrengthOfCard _strengthOfCard = (StrengthOfCard)Enum.ToObject(typeof(StrengthOfCard), strengthOfCard);
+                CardColor _giveANDtake = (CardColor)Enum.ToObject(typeof(CardColor), giveANDtake);
+                card.SetJokerStrength(_strengthOfCard, _giveANDtake);
+            }
+            return joker;
+        }
+
         public Joker PutCardOnTable(int cardId, string tableID)
         {
-            Joker joker = jokers.Where(p => p.TableID == tableID).FirstOrDefault();
-            Joke.Card card = joker.play.CurrentGamer.CardsOnHand.Where(p => p.CardId == cardId).FirstOrDefault();
+            Joker joker = jokers.FirstOrDefault(p => p.TableID == tableID);
+            Joke.Card card = joker.play.CurrentGamer.CardsOnHand.FirstOrDefault(p => p.CardId == cardId);
             if (joker != null)
             {
                 bool res = joker.play.CurrentGamer.PutCardAway(card);
