@@ -52,7 +52,8 @@ namespace LionshubJokAPI.Services
             List<Table> tables = Get();
             foreach (Table item in tables)
             {
-                Delete(item);
+                if (item.Id != "5e9ccee0928c691e703aaadc")
+                    Delete(item);
             }
         }
         //public bool DeleteAll()

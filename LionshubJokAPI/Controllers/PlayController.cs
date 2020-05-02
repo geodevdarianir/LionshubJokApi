@@ -43,9 +43,9 @@ namespace LionshubJokAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult StartHand(string tableID)
+        public IActionResult StartHand(string tableID, Models.RoundsAndGamers round)
         {
-            PlayGame play = _jokerService.StartPlay(tableID);
+            PlayGame play = _jokerService.StartPlay(tableID, round);
             return Ok(play);
         }
 

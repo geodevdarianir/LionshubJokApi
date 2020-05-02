@@ -64,7 +64,8 @@ namespace LionshubJokAPI.Services
             List<Gamer> allGamers = Get();
             foreach (Gamer item in allGamers)
             {
-                Delete(item);
+                if (item.TableId != "5e9ccee0928c691e703aaadc")
+                    Delete(item);
             }
         }
     }

@@ -77,10 +77,10 @@ namespace LionshubJokAPI.Services
             return res;
         }
 
-        public Joke.PlayGame StartPlay(string tableID)
+        public Joke.PlayGame StartPlay(string tableID, Models.RoundsAndGamers round)
         {
             Joker joker = jokers.Where(p => p.TableID == tableID).FirstOrDefault();
-            Models.RoundsAndGamers round = joker.rounds.LastOrDefault(p => p.Aktive == true);
+            //Models.RoundsAndGamers round = joker.rounds.LastOrDefault(p => p.Aktive == true);
             Joke.Gamer CurrentGamer = jokers.Where(p => p.TableID == tableID).FirstOrDefault().play.Gamers.Where(p => p.Id == round.GamerID).FirstOrDefault();
             joker.play.StartRound(round.handRound);
             joker.ScoresOfGamers = new Joke.ScoresOfGamers(round.handRound, joker.play.Gamers);
@@ -178,7 +178,7 @@ namespace LionshubJokAPI.Services
                     Models.RoundsAndGamers round = joker.rounds.Where(p => p.Aktive == false).FirstOrDefault();
                     round.Aktive = true;
                     joker.play.CurrentGamer = joker.play.Gamers.Where(p => p.Id == round.GamerID).First();
-                    StartPlay(joker.TableID);
+                    //StartPlay(joker.TableID);
                 }
             }
             else
