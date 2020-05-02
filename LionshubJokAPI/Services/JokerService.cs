@@ -69,7 +69,7 @@ namespace LionshubJokAPI.Services
                 joker.play = new Joke.PlayGame(playGamers);
                 joker.TableID = tableID;
                 joker.Table = playTable;
-               
+
                 joker.play.CurrentGamer = joker.play.Gamers.First(p => p.Id == joker.rounds.First().GamerID);
                 jokers.Add(joker);
                 res = true;
@@ -91,6 +91,16 @@ namespace LionshubJokAPI.Services
             return jokers.Where(p => p.TableID == tableID).FirstOrDefault().play;
         }
 
+        public Joker SetTumpCard(string tableID, int cardColor)
+        {
+            Joker joker = jokers.FirstOrDefault(p => p.TableID == tableID);
+            if (joker != null)
+            {
+                CardColor color = (CardColor)Enum.ToObject(typeof(CardColor), cardColor);
+                joker.play.SetTrumpCardOfRound(color);
+            }
+            return joker;
+        }
         public Joker AllowScores(string tableID, int gamerID)
         {
             Joker jok = jokers.FirstOrDefault(p => p.TableID == tableID);
@@ -159,7 +169,7 @@ namespace LionshubJokAPI.Services
         {
             if (joker.Table._fourCardsAndGamersListOnTheTable._fourCardAndGamerOnTable.Count == joker.play.Gamers.Count)
             {
-               Models.RoundsAndGamers currentHand = joker.rounds.Where(p => p.Aktive == true).LastOrDefault();
+                Models.RoundsAndGamers currentHand = joker.rounds.Where(p => p.Aktive == true).LastOrDefault();
                 joker.Table.TakeCardsFromTable(currentHand.handRound);
                 joker.play.CurrentGamer = joker.play.Gamers.Where(p => p.CurrentGamerAfterOneRound == true).First();
                 joker.CountOfCardsOnHand = joker.CountOfCardsOnHand - 1;

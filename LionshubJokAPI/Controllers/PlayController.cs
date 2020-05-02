@@ -109,5 +109,11 @@ namespace LionshubJokAPI.Controllers
         {
             return Ok(_jokerService.TellScore(tableID, gamerID, score));
         }
+
+        [HttpPost]
+        public IActionResult SetTrumpCard(string tableID, int color)
+        {
+            return Ok(_jokerService.SetTumpCard(tableID, color));
+        }
     }
 }
