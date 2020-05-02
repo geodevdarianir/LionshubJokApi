@@ -19,7 +19,7 @@ namespace LionshubJokAPI.Controllers
         {
             _jokerService = jokerService;
         }
-       
+
         [HttpPost]
         public IActionResult GeneratePlay(Models.Table table)
         {
@@ -96,6 +96,18 @@ namespace LionshubJokAPI.Controllers
         public IActionResult GetCurrentGames()
         {
             return Ok(_jokerService.GetCurrentGames());
+        }
+
+        [HttpPost]
+        public IActionResult AllowScores(string tableID, int gamerID)
+        {
+            return Ok(_jokerService.AllowScores(tableID, gamerID));
+        }
+
+        [HttpGet]
+        public IActionResult TellScores(string tableID, int gamerID, int score)
+        {
+            return Ok(_jokerService.TellScore(tableID, gamerID, score));
         }
     }
 }
