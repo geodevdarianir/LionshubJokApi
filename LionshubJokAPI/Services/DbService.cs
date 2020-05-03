@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LionshubJokAPI.Entities;
 using LionshubJokAPI.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -33,6 +34,14 @@ namespace LionshubJokAPI.Services
                 return _database.GetCollection<Gamer>("Gamers");
             }
         }
+        public IMongoCollection<User> Users
+        {
+            get
+            {
+                return _database.GetCollection<User>("Users");
+            }
+        }
+
         public IMongoDatabase DataBase
         {
             get => _database;

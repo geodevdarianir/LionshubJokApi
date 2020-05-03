@@ -7,7 +7,8 @@ namespace LionshubJokAPI.Models
 {
     public class Settings
     {
-        public string ConnectionString;
-        public string Database;
+        public string ConnectionString { get; set; }
+        public string Database { get; set; }
+        public string Secret { get; set; }
     }
 }

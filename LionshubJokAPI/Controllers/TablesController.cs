@@ -25,6 +25,7 @@ namespace LionshubJokAPI.Controllers
             return _tableService.Get();
         }
 
+
         [HttpPost("id:length(24)", Name = "GetTable")]
         public ActionResult<Table> Get(string id)
         {
