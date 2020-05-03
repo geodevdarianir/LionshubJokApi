@@ -22,12 +22,9 @@ namespace LionshubJokAPI.Services
 
         public UserService(IOptions<Settings> appSettings)
         {
-            //_appSettings = appSettings.Value;
-
             _context = new DbService(appSettings);
             _user = _context.Users;
             _db = _context.DataBase;
-
         }
 
         public User Authenticate(string email, string password)
@@ -61,8 +58,8 @@ namespace LionshubJokAPI.Services
             if (string.IsNullOrWhiteSpace(password))
                 throw new ApplicationException("Password is required");
 
-            if (_context.Users.AsQueryable().Any(x => x.Email == user.Username))
-                throw new ApplicationException("Username \"" + user.Username + "\" is already taken");
+            if (_context.Users.AsQueryable().Any(x => x.Email == user.Email))
+                throw new ApplicationException("Email \"" + user.Email + "\" is already taken");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -93,10 +90,6 @@ namespace LionshubJokAPI.Services
             }
             if (!string.IsNullOrWhiteSpace(userParam.Username) && userParam.Username != user.Username)
             {
-                // throw error if the new username is already taken
-                //if (_context.Users.Any(x => x.Username == userParam.Username))
-                //    throw new ApplicationException("Username " + userParam.Username + " is already taken");
-
                 user.Username = userParam.Username;
             }
 

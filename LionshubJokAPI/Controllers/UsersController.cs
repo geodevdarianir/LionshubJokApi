@@ -124,7 +124,7 @@ namespace WebApi.Controllers
             {
                 // create user
                 _userService.Create(user, model.Password);
-                return Ok();
+                return Ok(new { message = "user registered successfully" });
             }
             catch (ApplicationException ex)
             {
