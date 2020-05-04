@@ -102,7 +102,6 @@ namespace WebApi.Controllers
                 Id = user.Id,
                 Username = user.Username
             };
-
             return Ok(model);
         }
 
@@ -119,7 +118,6 @@ namespace WebApi.Controllers
                 LastName = model.LastName,
                 Username = model.Username
             };
-
             try
             {
                 // create user

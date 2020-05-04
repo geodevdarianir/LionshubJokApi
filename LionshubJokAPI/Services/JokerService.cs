@@ -172,42 +172,47 @@ namespace LionshubJokAPI.Services
                 bool res = joker.play.CurrentGamer.PutCardAway(card);
                 if (res)
                 {
-                    SwitchCurrentGamer(joker);
+                    //SwitchCurrentGamer(joker);
                     return joker;
                 }
             }
             return null;
         }
 
-        private void SwitchCurrentGamer(Joker joker)
+        public Joker SwitchCurrentGamer(string tableID)
         {
-            if (joker.Table._fourCardsAndGamersListOnTheTable._fourCardAndGamerOnTable.Count == joker.play.Gamers.Count)
+            Joker joker = jokers.FirstOrDefault(p => p.TableID == tableID);
+            if (joker != null)
             {
-                Models.RoundsAndGamers currentHand = joker.rounds.Where(p => p.Aktive == true).LastOrDefault();
-                joker.Table.TakeCardsFromTable(currentHand.handRound);
-                joker.play.CurrentGamer = joker.play.Gamers.Where(p => p.CurrentGamerAfterOneRound == true).First();
-                joker.CountOfCardsOnHand = joker.CountOfCardsOnHand - 1;
-                if (joker.CountOfCardsOnHand == 0)
+                if (joker.Table._fourCardsAndGamersListOnTheTable._fourCardAndGamerOnTable.Count == joker.play.Gamers.Count)
                 {
-                    Models.RoundsAndGamers round = joker.rounds.Where(p => p.Aktive == false).FirstOrDefault();
-                    round.Aktive = true;
-                    joker.play.CurrentGamer = joker.play.Gamers.Where(p => p.Id == round.GamerID).First();
-                    //StartPlay(joker.TableID);
-                }
-            }
-            else
-            {
-                int indexOfCurrentGamer = joker.play.Gamers.IndexOf(joker.play.CurrentGamer);
-                if (indexOfCurrentGamer == joker.play.Gamers.Count - 1)
-                {
-                    joker.play.CurrentGamer = joker.play.Gamers[0];
+                    Models.RoundsAndGamers currentHand = joker.rounds.Where(p => p.Aktive == true).LastOrDefault();
+                    joker.Table.TakeCardsFromTable(currentHand.handRound);
+                    joker.play.CurrentGamer = joker.play.Gamers.Where(p => p.CurrentGamerAfterOneRound == true).First();
+                    joker.CountOfCardsOnHand = joker.CountOfCardsOnHand - 1;
+                    if (joker.CountOfCardsOnHand == 0)
+                    {
+                        Models.RoundsAndGamers round = joker.rounds.Where(p => p.Aktive == false).FirstOrDefault();
+                        round.Aktive = true;
+                        joker.play.CurrentGamer = joker.play.Gamers.Where(p => p.Id == round.GamerID).First();
+                        //StartPlay(joker.TableID);
+                    }
                 }
                 else
                 {
-                    joker.play.CurrentGamer = joker.play.Gamers[indexOfCurrentGamer + 1];
+                    int indexOfCurrentGamer = joker.play.Gamers.IndexOf(joker.play.CurrentGamer);
+                    if (indexOfCurrentGamer == joker.play.Gamers.Count - 1)
+                    {
+                        joker.play.CurrentGamer = joker.play.Gamers[0];
+                    }
+                    else
+                    {
+                        joker.play.CurrentGamer = joker.play.Gamers[indexOfCurrentGamer + 1];
+                    }
                 }
+                joker.play.CurrentGamer.AllowCardsForTable();
             }
-            joker.play.CurrentGamer.AllowCardsForTable();
+            return joker;
         }
     }
 }

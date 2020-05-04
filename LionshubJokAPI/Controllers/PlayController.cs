@@ -120,5 +120,11 @@ namespace LionshubJokAPI.Controllers
         {
             return Ok(_jokerService.SetJokerStrength(tableID, strengthOfCard, giveANDtake, cardID));
         }
+
+        [HttpPost]
+        public IActionResult SwitchGamer(string tableID)
+        {
+            return Ok(_jokerService.SwitchCurrentGamer(tableID));
+        }
     }
 }
