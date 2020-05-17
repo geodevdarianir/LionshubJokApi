@@ -31,9 +31,8 @@ namespace LionshubJokAPI.Services
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 return null;
-            var ss = _context.Users.AsQueryable().SingleOrDefault();
-            var user = _context.Users.AsQueryable().SingleOrDefault(x => x.Email == email);
-
+            var ss = _context.Users.AsQueryable().Any();
+            var user = _context.Users.AsQueryable().FirstOrDefault(x => x.Email == email);
             // return null if user not found
             if (user == null)
                 return null;

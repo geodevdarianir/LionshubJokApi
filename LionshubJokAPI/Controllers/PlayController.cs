@@ -91,6 +91,22 @@ namespace LionshubJokAPI.Controllers
                 return Ok(joker);
             }
         }
+
+        [HttpPost]
+        public IActionResult BotPutCardOnTable(string tableID)
+        {
+
+            Joker joker = _jokerService.BotPutCardOnTable(tableID);
+            if (joker is null)
+            {
+                return Content("404");
+            }
+            else
+            {
+                return Ok(joker);
+            }
+        }
+
         [Route("")]
         [HttpGet]
         public IActionResult GetCurrentGames()
@@ -110,15 +126,21 @@ namespace LionshubJokAPI.Controllers
             return Ok(_jokerService.TellScore(tableID, gamerID, score));
         }
 
+        [HttpGet]
+        public IActionResult BotTellScores(string tableID, int gamerID)
+        {
+            return Ok(_jokerService.BotTellScore(tableID, gamerID));
+        }
+
         [HttpPost]
         public IActionResult SetTrumpCard(string tableID, int color)
         {
             return Ok(_jokerService.SetTumpCard(tableID, color));
         }
         [HttpPost]
-        public IActionResult SetJokerStrength(string tableID, int strengthOfCard, int giveANDtake, int cardID)
+        public IActionResult SetJokerStrength(string tableID, int strengthOfCard, int cardID, int? giveANDtake)
         {
-            return Ok(_jokerService.SetJokerStrength(tableID, strengthOfCard, giveANDtake, cardID));
+            return Ok(_jokerService.SetJokerStrength(tableID, strengthOfCard, cardID, giveANDtake));
         }
 
         [HttpPost]

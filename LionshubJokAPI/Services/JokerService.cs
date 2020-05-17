@@ -132,6 +132,27 @@ namespace LionshubJokAPI.Services
             return jok;
         }
 
+        public Joker BotTellScore(string tableID, int gamerID)
+        {
+            Joker jok = jokers.FirstOrDefault(p => p.TableID == tableID);
+            if (jok != null)
+            {
+                Score TellScore = jok.play.CurrentGamer.AllowedScores.First(p => p.Allowed == true).Score;
+                jok.ScoresOfGamers.TellScore(TellScore, gamerID);
+                int indexOfCurrentGamer = jok.play.Gamers.IndexOf(jok.play.CurrentGamer);
+                if (indexOfCurrentGamer == jok.play.Gamers.Count - 1)
+                {
+                    jok.play.CurrentGamer = jok.play.Gamers[0];
+                }
+                else
+                {
+                    jok.play.CurrentGamer = jok.play.Gamers[indexOfCurrentGamer + 1];
+                }
+            }
+            return jok;
+        }
+
+
         public Joker GetPlayState(string tableID)
         {
             return jokers.Where(p => p.TableID == tableID).FirstOrDefault();
@@ -150,7 +171,7 @@ namespace LionshubJokAPI.Services
             return jokers;
         }
 
-        public Joker SetJokerStrength(string tableID, int strengthOfCard, int giveANDtake, int cardID)
+        public Joker SetJokerStrength(string tableID, int strengthOfCard,  int cardID, int? giveANDtake = 4)
         {
             Joker joker = jokers.FirstOrDefault(p => p.TableID == tableID);
             Joke.Card card = joker.play.CurrentGamer.CardsOnHand.FirstOrDefault(p => p.CardId == cardID);
@@ -167,6 +188,21 @@ namespace LionshubJokAPI.Services
         {
             Joker joker = jokers.FirstOrDefault(p => p.TableID == tableID);
             Joke.Card card = joker.play.CurrentGamer.CardsOnHand.FirstOrDefault(p => p.CardId == cardId);
+            if (joker != null)
+            {
+                bool res = joker.play.CurrentGamer.PutCardAway(card);
+                if (res)
+                {
+                    //SwitchCurrentGamer(joker);
+                    return joker;
+                }
+            }
+            return null;
+        }
+        public Joker BotPutCardOnTable(string tableID)
+        {
+            Joker joker = jokers.FirstOrDefault(p => p.TableID == tableID);
+            Joke.Card card = joker.play.CurrentGamer.CardsOnHand.FirstOrDefault(p => p.AllowsCardOnTheTable == true);
             if (joker != null)
             {
                 bool res = joker.play.CurrentGamer.PutCardAway(card);
