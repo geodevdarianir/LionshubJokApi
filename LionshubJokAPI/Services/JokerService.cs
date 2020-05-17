@@ -62,7 +62,8 @@ namespace LionshubJokAPI.Services
                     joker.rounds.Add(new Models.RoundsAndGamers
                     {
                         GamerID = item.CurrentGamer.Id,
-                        handRound = item.Hand
+                        handRound = item.Hand,
+                        Pulka = item.Pulka
                     });
                 }
                 joker.rounds.First().Aktive = true;
@@ -72,6 +73,7 @@ namespace LionshubJokAPI.Services
                 joker.Table = playTable;
 
                 joker.play.CurrentGamer = joker.play.Gamers.First(p => p.Id == joker.rounds.First().GamerID);
+                joker.ResultOfPulkas = new List<ResultOfPulka>();
                 jokers.Add(joker);
                 res = true;
             }
@@ -194,7 +196,6 @@ namespace LionshubJokAPI.Services
                 bool res = joker.play.CurrentGamer.PutCardAway(card);
                 if (res)
                 {
-                    //SwitchCurrentGamer(joker);
                     return joker;
                 }
             }
@@ -248,6 +249,26 @@ namespace LionshubJokAPI.Services
                     }
                 }
                 joker.play.CurrentGamer.AllowCardsForTable();
+            }
+            return joker;
+        }
+
+        private Joker GetEndResultOfPulka(string tableID, int pulka)
+        {
+            Joker joker = jokers.FirstOrDefault(p => p.TableID == tableID);
+            if (joker != null)
+            {
+                foreach (Joke.Gamer item in joker.play.Gamers)
+                {
+                    List<Result> result = item.Result.Where(p => p.Hand.Pulka == pulka).ToList();
+                    int endResult = result.Sum(p => p.EndResult);
+                    joker.ResultOfPulkas.Add(new ResultOfPulka
+                    {
+                        GamerID = item.Id,
+                        Result = endResult,
+                        Pulka = pulka
+                    });
+                }
             }
             return joker;
         }

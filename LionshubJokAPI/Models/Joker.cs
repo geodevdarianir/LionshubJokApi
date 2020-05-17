@@ -14,5 +14,6 @@ namespace LionshubJokAPI.Models
         public string TableID { get; set; }
         public LionshubJoker.Joker.Table Table { get; set; }
         public int CountOfCardsOnHand { get; set; }
+        public List<ResultOfPulka> ResultOfPulkas { get; set; }
     }
 }
