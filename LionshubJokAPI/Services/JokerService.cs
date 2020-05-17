@@ -171,9 +171,10 @@ namespace LionshubJokAPI.Services
             return jokers;
         }
 
-        public Joker SetJokerStrength(string tableID, int strengthOfCard,  int cardID, int? giveANDtake = 4)
+        public Joker SetJokerStrength(string tableID, int strengthOfCard, int cardID, int? giveANDtake = 4)
         {
             Joker joker = jokers.FirstOrDefault(p => p.TableID == tableID);
+
             Joke.Card card = joker.play.CurrentGamer.CardsOnHand.FirstOrDefault(p => p.CardId == cardID);
             if (card != null)
             {
