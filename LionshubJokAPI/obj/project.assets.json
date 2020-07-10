@@ -8083,11 +8083,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rdev\\source\\repos\\LionshubJokApi2\\LionshubJokAPI\\LionshubJokAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Rdev\\Source\\Repos\\LionshubJokApi\\LionshubJokAPI\\LionshubJokAPI.csproj",
       "projectName": "LionshubJokAPI",
-      "projectPath": "C:\\Users\\Rdev\\source\\repos\\LionshubJokApi2\\LionshubJokAPI\\LionshubJokAPI.csproj",
+      "projectPath": "C:\\Users\\Rdev\\Source\\Repos\\LionshubJokApi\\LionshubJokAPI\\LionshubJokAPI.csproj",
       "packagesPath": "C:\\Users\\Rdev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rdev\\source\\repos\\LionshubJokApi2\\LionshubJokAPI\\obj\\",
+      "outputPath": "C:\\Users\\Rdev\\Source\\Repos\\LionshubJokApi\\LionshubJokAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -8152,6 +8152,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.2, 3.1.2]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8160,7 +8166,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
